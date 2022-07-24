@@ -52,6 +52,5 @@ contextAPI, eventbus, 전역상태를 잘 관리하기 위해 상태관리 라�
 * 상태관리 라이브러리 선택할 때 어떤 점(어떤 문제를 회피하기 위해)을 고려해야 하는가? 
 
 # 같이 읽어보기
-~아직 안읽음. 이렇게 링크 걸어두면 언젠가 읽겠지..~<br/>
 [전역 상태 관리에 대한 단상 (stale-while-revalidate)](https://jbee.io/react/thinking-about-global-state/)<br/>
 [On state management and why I stopped using it](https://dev.to/beggars/on-state-management-and-why-i-stopped-using-it-4di)<br/>
