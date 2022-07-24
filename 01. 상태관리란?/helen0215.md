@@ -55,5 +55,3 @@ contextAPI, eventbus, 전역상태를 잘 관리하기 위해 상태관리 라�
 ~아직 안읽음. 이렇게 링크 걸어두면 언젠가 읽겠지..~<br/>
 [전역 상태 관리에 대한 단상 (stale-while-revalidate)](https://jbee.io/react/thinking-about-global-state/)<br/>
 [On state management and why I stopped using it](https://dev.to/beggars/on-state-management-and-why-i-stopped-using-it-4di)<br/>
-[React Hook의 어두운면](https://ui.toast.com/weekly-pick/ko_20200922)<br/>
-[State Management Battle in React: Hooks, Redux and Recoil](https://javascript.works-hub.com/learn/state-management-battle-in-react-hooks-redux-and-recoil-9977a)
