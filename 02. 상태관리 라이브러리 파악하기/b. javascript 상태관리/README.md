@@ -416,6 +416,7 @@ const event = {
 ```
 
 모델에서 이전상태와 이벤트를 받아 새로운 상태를 변환하도록 구현한다.
+
 <img width="455" alt="image" src="https://user-images.githubusercontent.com/60346043/186335797-3eb8cb37-7b10-4dc4-9edd-61380a926900.png">
 
 <img width="494" alt="image" src="https://user-images.githubusercontent.com/60346043/186336458-c8310c8e-2223-4810-be14-9c53bf8eb5e6.png">
