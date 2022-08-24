@@ -322,7 +322,7 @@ console.log(`Logging ${proxy.foo}`)
 </pre>
 
 프록시 옵저버블 팩토리 [observable.js](./src/03.%20reactive/2.%20native%20proxy/observable.js)
-```javaascript
+```javascript
 const cloneDeep = x => {
   return JSON.parse(JSON.stringify(x))
 }
