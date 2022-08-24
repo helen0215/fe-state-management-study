@@ -21,7 +21,7 @@ const events = {
     <b>state.todos.push({
       text,
       completed: false
-    })<b>
+    })</b>
     render()
   },
   ...
