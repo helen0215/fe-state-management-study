@@ -672,6 +672,8 @@ const addEvents = (targetElement, dispatch) => {
 }
 ...
 </pre>
+view가 여러개로 나눠져 있고 dispatch 하는 부분이 controller에도 있다면 dispatch 하는 부분들이 분산되어 관리가 어려울 수도 있을것 같다.</br>
+view는 이벤트 발생을 컨트롤러에게 전달하고 dispatch로 상태변경은 controller에 위임하는 방법도 생각해 볼 수 있다.</br>
 여기까지 하고나서 개인적으로는 Redux와 굉장히 비슷하다는걸 느꼈다.
 
 # 비교
