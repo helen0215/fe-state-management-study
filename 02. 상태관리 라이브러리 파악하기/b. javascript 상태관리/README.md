@@ -484,7 +484,7 @@ const INITIAL_STATE = {
   currentFilter: 'All'
 }
 
-<>const addItem = (state, event) => {
+<b>const addItem = (state, event) => {
   const text = event.payload
   if (!text) {
     return state
