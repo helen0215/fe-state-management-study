@@ -1,6 +1,16 @@
-> [전체 코드](https://github.com/Apress/frameworkless-front-end-development/tree/master/Chapter07)
+# 목차
+- [Controller 코드](#controller-코드)
+- [모델-뷰-컨트롤러](#모델-뷰-컨트롤러)
+  * [옵저버블 모델](#옵저버블-모델)
+- [반응형 프로그래밍](#반응형-프로그래밍)
+  * [반응형 모델](#반응형-모델)
+  * [네이티브 프록시](#네이티브-프록시)
+- [이벤트 버스](#이벤트-버스)
+- [비교](#비교)
+- [결론](#결론)
 
 # Controller 코드
+> [전체 코드](https://github.com/Apress/frameworkless-front-end-development/tree/master/Chapter07)<br/>
 > 컨트롤러에서 전역 상태를 관리한다. 
 1. registry에 렌더링을 위해 컴포넌트 View를 등록합니다.
 2. View와 registry.renderRoot는 새로운 Element 를 리턴합니다.
