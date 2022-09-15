@@ -250,11 +250,8 @@ export const useSWRHandler = <Data = any, Error = any>(
     get isValidating() {
       stateDependencies.isValidating = true
       return isValidating
-    },
-    get isLoading() {
-      stateDependencies.isLoading = true
-      return isLoading
     }
+    ...
   } as SWRResponse<Data, Error>
 }
 
