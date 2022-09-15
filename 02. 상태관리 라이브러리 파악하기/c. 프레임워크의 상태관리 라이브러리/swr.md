@@ -74,12 +74,12 @@ export default function App() {
 ```tsx
 const fetcher  = async(url) => return await axios.get(url).then({data}=> data)
 
-const { data, error, isValidating, isLoading, mutate } = useSWR(key, fetcher, options)
+const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 ```
 
 - key : 요청을 위한 고유한 값
 - fetcher : 요청 후의 응답값을 다루기 위한 함수를 반환하는 프라미스
-- mutate : 캐시 업데이트하는 함수, shouldRevalidate 값을 통해 한번더 url 요청을 할지 말지를 처리해줄 수 있다.
+- mutate : 캐시 업데이트하는 함수, mutate(key, data, options) 방식으로 사용할 수 있고, 같은 key 값으로 SWR 캐싱을 하고 있는 subscriber 에게 변경됨을 브로드캐스팅 한다. (보통 로그아웃 시 사용)
 - data : fetcher에 의해 반환된 data
 - error: fetcher에서 던진 오류, 성공시 undefined 반환
 - isValidating : 만약 요청이 있거나 로딩 중인 경우에 반환
@@ -89,12 +89,12 @@ const { data, error, isValidating, isLoading, mutate } = useSWR(key, fetcher, op
 ## 동작원리
 
 - useSWR
+    - config 에서 cache 를 받아올때, initCache 를 통해 mutate, setter, subscribe 함수들을 묶어 SWRGlobalState 에 저장한다.
     - createCacheHelper 를 통해 cache 의 setter, getter, subscribe 함수들을 받을 수 있다. (cache를 상태화)
         
         ⇒ 해당 cache 값을 변경하면 바라보고있는 subscriber 들에게 값 변경이 전파가 되게 된다.
         
     - 리액트 권장사항대로 외부 상태값인 cache를 useSyncExternalStore 로 묶어 cached로 둔다.
-    - data, returnedDate는 결국 cached 를 바라보고 있어 subscribe로 엮이게 된다.
     - revalidate 를 통해 api 요청을 통한 응답을 받아오게 되면 [finalState.data](http://finalState.data) 에 newdata 를 넣어주게 되고
     - 마지막으로 finishRequestAndUpdateState 를 호출 후 setCache(finalState) 를 통해 cache 값을 새롭게 설정해준다.
     - 그 후 get 접근자(Object.defineProperty 의 getter와 같음)로 정의된 get data() {}, 를 통해 외부에서 useSWR 의 data를 바라보고 있을 경우 알려주게 된다.
@@ -119,13 +119,13 @@ export const useSWRHandler = <Data = any, Error = any>(
 
 	...
 
-	// `key` is the identifier of the SWR `data` state, `keyInfo` holds extra
+  // `key` is the identifier of the SWR `data` state, `keyInfo` holds extra
   // states such as `error` and `isValidating` inside,
   // all of them are derived from `_key`.
   // `fnArg` is the argument/arguments parsed from the key, which will be passed
   // to the fetcher.
   const [key, fnArg] = serialize(_key)
-	// Refs to keep the key and config.
+  // Refs to keep the key and config.
   const keyRef = useRef(key)
   const fetcherRef = useRef(fetcher)
   const configRef = useRef(config)
@@ -138,9 +138,9 @@ export const useSWRHandler = <Data = any, Error = any>(
     }
   >(cache, key)
 
-	// 리액트에서 직접 관리되지 않는 상태를 참조할 때, 콜백 큐 지연 정도에 따라 값이 꼬일수 있어(tearing) 
-	// 랜더링 시점에 값을 강제로 동기 참조하도록 useSyncExternalStore 사용함을 권장
-	// Get the current state that SWR should return.
+  // 리액트에서 직접 관리되지 않는 상태를 참조할 때, 콜백 큐 지연 정도에 따라 값이 꼬일수 있어(tearing) 
+  // 랜더링 시점에 값을 강제로 동기 참조하도록 useSyncExternalStore 사용함을 권장
+  // Get the current state that SWR should return.
   const cached = useSyncExternalStore(
     useCallback(
       (callback: () => void) =>
@@ -213,30 +213,31 @@ export const useSWRHandler = <Data = any, Error = any>(
         ;[newData, startAt] = FETCH[key]
         newData = await newData
 
-				...
+	...
 
-				const cacheData = getCache().data
+	const cacheData = getCache().data
 
         // Since the compare fn could be custom fn
         // cacheData might be different from newData even when compare fn returns True
         finalState.data = compare(cacheData, newData) ? cacheData : newData
 
-				...
-			} catch(e) {...}
-
-			finishRequestAndUpdateState();
-		}
-	}
-	
 	...
+	
+	} catch(e) {...}
+
+	finishRequestAndUpdateState();
+     }
+  }
+	
+  ...
 
   const finishRequestAndUpdateState = () => {
     setCache(finalState)
   }
 	
-	...
-	
-	return {
+  ...
+
+  return {
     mutate: boundMutate,
     get data() {
       stateDependencies.data = true
