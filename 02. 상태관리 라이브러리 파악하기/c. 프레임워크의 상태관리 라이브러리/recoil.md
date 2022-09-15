@@ -268,3 +268,5 @@ notifyComponents가 호출되면 subscribeToRecoilValue이 호출되고, 결과�
 
 그리고 subscribe 하고 있는 recoilState가 set 되는 시점에 적절하게 forceUpdate 함수가 실행되게되면서 subscribe하고 있는 컴포넌트만 리렌더링이 발생
 
+![recoil-store](https://user-images.githubusercontent.com/42891424/190305499-3bd60d0c-b182-415e-9281-e0e396175a22.png)
+
